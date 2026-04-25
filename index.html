@@ -181,7 +181,7 @@
     .hero-slideshow {
       position: relative;
       width: 100%;
-      height: 260px;
+      height: 300px;
       overflow: hidden;
       background: linear-gradient(135deg, var(--green-light) 0%, var(--green-mid) 60%, #5dd8d4 100%);
       user-select: none;
@@ -197,18 +197,18 @@
 
     .hero-slide {
       min-width: 100%;
-      height: 100%;
+      height: 300px;
       flex-shrink: 0;
       position: relative;
+      overflow: hidden;
     }
 
     .hero-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 30%;
       display: block;
-      pointer-events: none;
-      -webkit-user-drag: none;
     }
 
     /* 画像が存在しない場合のプレースホルダー */
@@ -237,6 +237,24 @@
       font-size: 13px;
       color: var(--green-dark);
       opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .hero-slideshow,
+      .hero-slides-track,
+      .hero-slide {
+        height: 300px !important;
+        max-height: 300px !important;
+        overflow: hidden !important;
+      }
+
+      .hero-slide img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center center !important;
+        display: block !important;
+      }
     }
 
     /* ドットインジケーター */
