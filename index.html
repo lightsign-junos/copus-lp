@@ -1220,7 +1220,7 @@
        HERO
   ============================ -->
   <section class="hero">
-    <!-- スライドショー：assets/images01.jpeg, assets/images02.jpeg -->
+    <!-- スライドショー：assets/images01.jpg〜images04.jpg -->
     <div class="hero-slideshow" id="heroSlideshow">
       <div class="hero-slides-track" id="heroSlidesTrack"></div>
       <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
@@ -1842,7 +1842,7 @@
 
     /* ================================
        ヒーロー スライドショー
-       - assets/images01.jpeg, assets/images02.jpeg の2枚を表示
+       - assets/images01.jpg〜images04.jpg を表示
        - 3秒ごとに自動スライド、ドットタップ・スワイプでも切り替え
        - 画像が存在しない場合はプレースホルダーを表示
     ================================ */
@@ -1868,7 +1868,7 @@
 
       /* --- 使用する画像ファイルを確認して収集 --- */
       async function collectImages() {
-        var candidates = ['assets/images01.jpeg', 'assets/images02.jpeg'];
+        var candidates = ['assets/images01.jpg', 'assets/images02.jpg', 'assets/images03.jpg', 'assets/images04.jpg'];
         var srcs = [];
         for (var i = 0; i < candidates.length; i++) {
           var ok = await probeImage(candidates[i]);
@@ -1895,7 +1895,7 @@
         div.className = 'hero-slide hero-slide-ph';
         div.innerHTML =
           '<div class="hero-slide-ph-icon"><i class="fa-solid fa-school-flag"></i></div>' +
-          '<p>assets/images01.jpeg を配置してください</p>';
+          '<p>assets/images01.jpg を配置してください</p>';
         return div;
       }
 
