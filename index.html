@@ -181,29 +181,24 @@
     .hero-slideshow {
       position: relative;
       width: 100%;
-      height: 56vw;
-      max-height: 350px;
-      min-height: 200px;
+      height: 300px;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--green-light) 0%, var(--green-mid) 60%, #5dd8d4 100%);
+      background: var(--green-light);
       user-select: none;
       -webkit-user-select: none;
-      touch-action: pan-y; /* 縦スクロールは妨げない */
     }
 
     .hero-slides-track {
       display: flex;
-      height: 100%;
-      /* transition は JS で付与するため初期値なし */
+      height: 300px;
+      transition: transform 0.5s ease-in-out;
+      will-change: transform;
     }
 
     .hero-slide {
-      min-width: 100%;
-      height: 56vw;
-      max-height: 350px;
-      min-height: 200px;
-      flex-shrink: 0;
-      position: relative;
+      flex: 0 0 100%;
+      width: 100%;
+      height: 300px;
       overflow: hidden;
     }
 
@@ -213,52 +208,6 @@
       object-fit: cover;
       object-position: center center;
       display: block;
-    }
-
-    /* 画像が存在しない場合のプレースホルダー */
-    .hero-slide-ph {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .hero-slide-ph-icon {
-      width: 72px;
-      height: 72px;
-      background: rgba(255,255,255,0.6);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-    }
-
-    .hero-slide-ph p {
-      font-size: 13px;
-      color: var(--green-dark);
-      opacity: 0.7;
-    }
-
-    @media (max-width: 768px) {
-      .hero-slideshow,
-      .hero-slide {
-        height: 56vw !important;
-        max-height: 350px !important;
-        min-height: 200px !important;
-        overflow: hidden !important;
-      }
-
-      .hero-slide img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        object-position: center center !important;
-        display: block !important;
-      }
     }
 
     /* ドットインジケーター */
@@ -283,7 +232,6 @@
       padding: 0;
       cursor: pointer;
       transition: background 0.3s, transform 0.3s;
-      /* タップターゲット拡大（見た目より大きく） */
       position: relative;
     }
 
@@ -1220,7 +1168,6 @@
        HERO
   ============================ -->
   <section class="hero">
-    <!-- スライドショー：assets/images01.jpg〜images04.jpg -->
     <div class="hero-slideshow" id="heroSlideshow">
       <div class="hero-slides-track" id="heroSlidesTrack"></div>
       <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
@@ -1842,153 +1789,84 @@
 
     /* ================================
        ヒーロー スライドショー
-       - assets/images01.jpg〜images04.jpg を表示
-       - 3秒ごとに自動スライド、ドットタップ・スワイプでも切り替え
-       - 画像が存在しない場合はプレースホルダーを表示
     ================================ */
     (function() {
+      var IMAGES = [
+        'assets/images01.jpg',
+        'assets/images02.jpg',
+        'assets/images03.jpg',
+        'assets/images04.jpg'
+      ];
+      var INTERVAL = 3000;
+
       var track    = document.getElementById('heroSlidesTrack');
       var dotsWrap = document.getElementById('heroDots');
       var slideshow = document.getElementById('heroSlideshow');
-
       var current  = 0;
-      var total    = 0;
+      var total    = IMAGES.length;
       var timer    = null;
-      var INTERVAL = 3000;
-      var TRANS    = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
-      /* --- 画像の存在確認 --- */
-      function probeImage(src) {
-        return new Promise(function(resolve) {
-          var img = new Image();
-          img.onload  = function() { resolve(true); };
-          img.onerror = function() { resolve(false); };
-          img.src = src;
-        });
-      }
 
-      /* --- 使用する画像ファイルを確認して収集 --- */
-      async function collectImages() {
-        var candidates = ['assets/images01.jpg', 'assets/images02.jpg', 'assets/images03.jpg', 'assets/images04.jpg'];
-        var srcs = [];
-        for (var i = 0; i < candidates.length; i++) {
-          var ok = await probeImage(candidates[i]);
-          if (ok) srcs.push(candidates[i]);
-        }
-        return srcs;
-      }
-
-      /* --- スライド要素の生成 --- */
-      function makeSlide(src, index, total) {
-        var div = document.createElement('div');
-        div.className = 'hero-slide';
+      /* スライド生成 */
+      IMAGES.forEach(function(src, i) {
+        var slide = document.createElement('div');
+        slide.className = 'hero-slide';
         var img = document.createElement('img');
         img.src = src;
-        img.alt = 'コプラス東大前教室 ' + (index + 1) + '枚目';
+        img.alt = 'コプラス東大前教室 ' + (i + 1) + '枚目';
         img.draggable = false;
-        div.appendChild(img);
-        return div;
-      }
+        slide.appendChild(img);
+        track.appendChild(slide);
+      });
 
-      /* --- プレースホルダーの生成 --- */
-      function makePlaceholder() {
-        var div = document.createElement('div');
-        div.className = 'hero-slide hero-slide-ph';
-        div.innerHTML =
-          '<div class="hero-slide-ph-icon"><i class="fa-solid fa-school-flag"></i></div>' +
-          '<p>assets/images01.jpg を配置してください</p>';
-        return div;
-      }
+      /* ドット生成 */
+      IMAGES.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', (i + 1) + '枚目を表示');
+        dot.addEventListener('click', function() {
+          stopTimer();
+          goTo(i);
+          startTimer();
+        });
+        dotsWrap.appendChild(dot);
+      });
 
-      /* --- 指定インデックスへ移動 --- */
-      function goTo(index, skipTransition) {
-        track.style.transition = skipTransition ? 'none' : TRANS;
-        track.style.transform  = 'translateX(-' + (index * 100) + '%)';
-        if (skipTransition) {
-          // レイアウト確定後に transition を復元
-          requestAnimationFrame(function() {
-            requestAnimationFrame(function() { track.style.transition = TRANS; });
-          });
-        }
+      function goTo(index) {
+        current = index;
+        track.style.transform = 'translateX(-' + (index * 100) + '%)';
         dotsWrap.querySelectorAll('.hero-dot').forEach(function(d, i) {
           d.classList.toggle('active', i === index);
         });
-        current = index;
       }
 
       function next() { goTo((current + 1) % total); }
+      function startTimer() { timer = setInterval(next, INTERVAL); }
+      function stopTimer() { clearInterval(timer); timer = null; }
 
-      function startTimer() {
-        if (total <= 1) return;
-        timer = setInterval(next, INTERVAL);
-      }
-
-      function stopTimer() { clearInterval(timer); }
-
-      /* --- ドット生成（2枚以上のみ） --- */
-      function buildDots() {
-        if (total <= 1) return;
-        for (var i = 0; i < total; i++) {
-          var btn = document.createElement('button');
-          btn.className = 'hero-dot' + (i === 0 ? ' active' : '');
-          btn.setAttribute('aria-label', (i + 1) + '枚目を表示');
-          (function(idx) {
-            btn.addEventListener('click', function() {
-              stopTimer();
-              goTo(idx);
-              startTimer();
-            });
-          })(i);
-          dotsWrap.appendChild(btn);
-        }
-      }
-
-      /* --- スワイプ対応 --- */
-      function initSwipe(el) {
-        var startX = 0, startY = 0, moved = false;
-
-        el.addEventListener('touchstart', function(e) {
-          startX = e.touches[0].clientX;
-          startY = e.touches[0].clientY;
-          moved  = false;
-          stopTimer();
-        }, { passive: true });
-
-        el.addEventListener('touchmove', function(e) {
-          moved = true;
-        }, { passive: true });
-
-        el.addEventListener('touchend', function(e) {
-          if (!moved) { startTimer(); return; }
+      /* スワイプ */
+      var startX = 0, startY = 0, moved = false;
+      slideshow.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        moved = false;
+        stopTimer();
+      }, { passive: true });
+      slideshow.addEventListener('touchmove', function() {
+        moved = true;
+      }, { passive: true });
+      slideshow.addEventListener('touchend', function(e) {
+        if (moved) {
           var dx = e.changedTouches[0].clientX - startX;
           var dy = e.changedTouches[0].clientY - startY;
-          // 水平方向のスワイプのみ反応（縦スクロールを妨げない）
           if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-            goTo(dx < 0
-              ? (current + 1) % total           // 左スワイプ → 次へ
-              : (current - 1 + total) % total   // 右スワイプ → 前へ
-            );
+            goTo(dx < 0 ? (current + 1) % total : (current - 1 + total) % total);
           }
-          startTimer();
-        }, { passive: true });
-      }
-
-      /* --- メイン処理 --- */
-      collectImages().then(function(srcs) {
-        if (srcs.length === 0) {
-          track.appendChild(makePlaceholder());
-          return;
         }
-
-        total = srcs.length;
-        srcs.forEach(function(src, i) {
-          track.appendChild(makeSlide(src, i, total));
-        });
-
-        buildDots();
-        goTo(0, true);  // 初期位置（アニメーションなし）
         startTimer();
-        initSwipe(slideshow);
-      });
+      }, { passive: true });
+
+      goTo(0);
+      startTimer();
     })();
   </script>
 
