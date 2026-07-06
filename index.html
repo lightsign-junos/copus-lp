@@ -272,6 +272,43 @@
       border-radius: 50%;
     }
 
+    /* 気になるサインのチェックチップ */
+    .hero-worries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .hero-worry {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--white);
+      border: 1.5px solid var(--green-mid);
+      color: var(--text-mid);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+      padding: 7px 13px;
+      border-radius: 20px;
+    }
+
+    .hero-worry::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .hero-worry-lead {
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
     .hero-title {
       font-family: var(--font-head);
       font-size: 27px;
@@ -318,7 +355,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      flex-wrap: wrap;
+      gap: 8px 16px;
       margin-top: 16px;
     }
 
@@ -1301,13 +1339,18 @@
     </div>
     <div class="hero-content">
       <span class="hero-badge">文京区・東大前エリア</span>
+      <div class="hero-worries" aria-label="こんな気になりはありませんか">
+        <span class="hero-worry">ことばがゆっくりかも</span>
+        <span class="hero-worry">集団行動がにがて</span>
+        <span class="hero-worry">健診で「様子を見ましょう」と言われた</span>
+      </div>
+      <p class="hero-worry-lead">ひとつでも当てはまったら——</p>
       <h1 class="hero-title">
         お子さまの<em>"できた"</em>を、<br>一緒に育てる場所
       </h1>
       <p class="hero-sub">
-        個性・個人・個別を大切に、お子さまと保護者を共に支える。<br>
-        有資格者が多数在籍する、文京区の多機能型児童通所支援施設。<br>
-        「ことばがゆっくりかも」——診断前の"気になる"段階からご相談いただけます。
+        個性・個人・個別を大切に、お子さまと保護者を共に支える文京区の療育教室。<br>
+        作業療法士・幼稚園教諭・保育士が在籍し、診断前の"気になる"段階からのご相談も歓迎です。
       </p>
       <a href="#contact" class="hero-cta">
         <svg width="20" height="20" fill="none" viewBox="0 0 20 20" aria-hidden="true">
@@ -1318,8 +1361,8 @@
       </a>
       <div class="hero-trust">
         <span class="hero-trust-item">見学無料</span>
+        <span class="hero-trust-item">診断前の相談OK</span>
         <span class="hero-trust-item">受給者証サポートあり</span>
-        <span class="hero-trust-item">3路線アクセス</span>
       </div>
     </div>
   </section>
