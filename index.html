@@ -1139,6 +1139,138 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50%       { opacity: 0.5; transform: scale(1.4); }
     }
+
+    /* ==============================
+       RESPONSIVE — TABLET & PC
+       （スマホ表示は従来のまま。768px以上で段階的に拡張）
+    ============================== */
+    @media (min-width: 768px) {
+      body {
+        max-width: none;
+        padding-bottom: 0;
+      }
+
+      .header {
+        padding: 16px max(24px, calc((100% - 1040px) / 2));
+      }
+
+      .section {
+        padding: 72px max(24px, calc((100% - 1040px) / 2));
+      }
+
+      .section-title { font-size: 28px; }
+
+      /* ヒーロー（タブレット：縦積みのまま余白を調整） */
+      .hero-slideshow,
+      .hero-slide { height: 380px; }
+      .hero-content {
+        padding: 36px max(24px, calc((100% - 720px) / 2)) 48px;
+      }
+
+      /* 選ばれる理由：3カラム */
+      .reasons-grid {
+        flex-direction: row;
+        gap: 20px;
+        align-items: stretch;
+      }
+      .reason-card {
+        flex: 1;
+        flex-direction: column;
+        gap: 14px;
+        padding: 26px 22px;
+      }
+
+      /* サービス：2カラム */
+      .services-grid {
+        flex-direction: row;
+        gap: 20px;
+        align-items: stretch;
+      }
+      .service-card { flex: 1; padding: 30px 26px; }
+
+      /* FAQ：中央寄せで読みやすい幅に */
+      .faq .section-label {
+        display: flex;
+        justify-content: center;
+      }
+      .faq .section-title { text-align: center; }
+      .faq-list {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      /* アクセス：駅を横並びに、地図を大きく */
+      .access-stations {
+        flex-direction: row;
+        gap: 14px;
+      }
+      .station-row { flex: 1; }
+      .access-map { height: 340px; }
+
+      /* お問い合わせ：中央寄せカラム */
+      .contact .section-label {
+        display: flex;
+        justify-content: center;
+      }
+      .contact .section-title { text-align: center; }
+      .contact-lead {
+        max-width: 640px;
+        margin: 0 auto 28px;
+      }
+      #contactForm,
+      .contact-btns {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .contact-divider {
+        max-width: 640px;
+        margin: 24px auto;
+      }
+
+      /* フローティングボタン：右下のコンパクトなピルに */
+      .float-btn-outer {
+        left: auto;
+        right: 28px;
+        bottom: 28px;
+        max-width: none;
+        width: auto;
+        padding: 0;
+        background: none;
+      }
+      .float-btn {
+        width: auto;
+        padding: 16px 30px;
+        border-radius: 40px;
+      }
+
+      .footer { padding: 40px 24px 32px; }
+    }
+
+    @media (min-width: 960px) {
+      /* ヒーロー：左テキスト・右スライドショーの2カラム */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: center;
+        padding: 72px max(24px, calc((100% - 1040px) / 2));
+      }
+      .hero-slideshow {
+        order: 2;
+        height: 440px;
+        border-radius: 24px;
+        box-shadow: var(--shadow-md);
+      }
+      .hero-slide { height: 440px; }
+      .hero-content {
+        order: 1;
+        padding: 0;
+      }
+      .hero-title { font-size: 38px; }
+      .hero-sub { font-size: 16px; }
+      .hero-cta { max-width: 420px; }
+      .hero-trust { justify-content: flex-start; }
+    }
   </style>
 </head>
 <body>
