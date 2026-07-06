@@ -964,6 +964,58 @@
       });
     });
   })();
+
+  /* ================================
+     計測レイヤー（Meta Pixel）
+     - META_PIXEL_ID が空の間は何も動かない
+     - フォームの入力内容は一切送信しない
+     - GAS送信コードには触れず、成功モーダルの表示をフックしてLeadを計測
+  ================================ */
+  (function() {
+    var META_PIXEL_ID = ''; // ← Meta Events Manager のピクセルID（15〜16桁の数字）を入れると計測開始
+
+    if (!META_PIXEL_ID) return;
+
+    /* Meta Pixel base code */
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+
+    /* 送信完了 → Lead（成功モーダルの表示をフック。GASコードは無変更） */
+    var origShowModal = window._showSuccessModal;
+    window._showSuccessModal = function() {
+      fbq('track', 'Lead');
+      if (origShowModal) origShowModal();
+    };
+
+    /* フォーム入力開始（最初のフォーカスで1回だけ） */
+    var formStarted = false;
+    document.getElementById('contactForm').addEventListener('focusin', function() {
+      if (formStarted) return;
+      formStarted = true;
+      fbq('trackCustom', 'FormStart');
+    });
+
+    /* スクロール到達 50% / 90%（各1回だけ） */
+    var sent50 = false, sent90 = false;
+    addEventListener('scroll', function() {
+      var h = document.documentElement;
+      var p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      if (!sent50 && p >= 0.5) { sent50 = true; fbq('trackCustom', 'Scroll50'); }
+      if (!sent90 && p >= 0.9) { sent90 = true; fbq('trackCustom', 'Scroll90'); }
+    }, { passive: true });
+
+    /* CTAクリック（フォームへ誘導するボタン） */
+    document.querySelectorAll('a.cta, .header-cta').forEach(function(el) {
+      el.addEventListener('click', function() {
+        fbq('trackCustom', 'CTAClick');
+      });
+    });
+  })();
 </script>
 
 </body>
