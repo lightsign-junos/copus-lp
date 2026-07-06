@@ -403,8 +403,12 @@
       position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;
       padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
       background:linear-gradient(to top,rgba(255,255,255,.97) 60%,transparent);z-index:200;pointer-events:none;
+      opacity:0;transform:translateY(14px);
+      transition:opacity .35s ease,transform .35s ease;
     }
-    .float-outer .cta{pointer-events:auto;min-height:54px;padding:14px 20px}
+    .float-outer.show{opacity:1;transform:none}
+    .float-outer .cta{pointer-events:none;min-height:54px;padding:14px 20px}
+    .float-outer.show .cta{pointer-events:auto}
 
     /* ==============================
        MOTION（reduced-motion尊重）
@@ -820,6 +824,34 @@
         c.style.transitionDelay = (i * 0.1) + 's';
       });
     });
+  })();
+
+  /* ================================
+     浮遊CTA：ヒーローのCTAが見えている間と
+     フォーム到達後は隠す（画面に相談ボタンは常に1つ）
+  ================================ */
+  (function() {
+    var floatEl = document.querySelector('.float-outer');
+    var heroCta = document.querySelector('.hero-cta-main');
+    var contact = document.getElementById('contact');
+    if (!floatEl || !heroCta || !contact) return;
+
+    var heroVisible = true;
+    var contactVisible = false;
+
+    function update() {
+      floatEl.classList.toggle('show', !heroVisible && !contactVisible);
+    }
+
+    new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { heroVisible = e.isIntersecting; });
+      update();
+    }, { threshold: 0 }).observe(heroCta);
+
+    new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { contactVisible = e.isIntersecting; });
+      update();
+    }, { threshold: 0.1 }).observe(contact);
   })();
 
   /* ================================
