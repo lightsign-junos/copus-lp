@@ -208,13 +208,22 @@
       border-radius:18px;padding:16px 18px 16px 64px;font-size:14px;font-weight:500;line-height:1.6;
     }
     .worry::before{
-      position:absolute;left:16px;top:50%;transform:translateY(-50%);
+      content:'';position:absolute;left:16px;top:50%;transform:translateY(-50%);
       width:36px;height:36px;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;font-size:17px;
+      background-repeat:no-repeat;background-position:center;background-size:19px 19px;
     }
-    .worry:nth-child(1)::before{content:'💭';background:var(--green-light)}
-    .worry:nth-child(2)::before{content:'🏃';background:#fdf0e4}
-    .worry:nth-child(3)::before{content:'😟';background:#fff6db}
+    .worry:nth-child(1)::before{
+      background-color:var(--green-light);
+      background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23089490' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M21 11.5a8 8 0 0 1-8.5 8H5.5l-2.5 2.5V11.5a9 9 0 0 1 18 0z'/><path d='M8 11.5h.01M12 11.5h.01M16 11.5h.01'/></svg>");
+    }
+    .worry:nth-child(2)::before{
+      background-color:#fdf0e4;
+      background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c77b3f' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='8.5' r='2.8'/><path d='M3.5 19.5c.9-3 3-4.5 5.5-4.5s4.6 1.5 5.5 4.5'/><circle cx='17.5' cy='9.5' r='2.2'/><path d='M16 14.6c2.5-.4 4.3 1 5 3.9'/></svg>");
+    }
+    .worry:nth-child(3)::before{
+      background-color:#fff6db;
+      background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a13b' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='8.5'/><path d='M12 7.5V12l3 2.5'/></svg>");
+    }
     .worry b{color:var(--green-deep)}
     .worries-close{text-align:center;background:var(--cream);border-radius:18px;padding:22px 20px}
     .worries-close .arrow{font-size:22px;color:var(--green);margin-bottom:2px;animation:bob 1.6s ease-in-out infinite}
@@ -234,11 +243,12 @@
     }
     .staff-icon{
       width:58px;height:58px;margin:0 auto 10px;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;font-size:26px;
+      display:flex;align-items:center;justify-content:center;
     }
-    .staff-card:nth-child(1) .staff-icon{background:var(--green-light)}
-    .staff-card:nth-child(2) .staff-icon{background:#fdf0e4}
-    .staff-card:nth-child(3) .staff-icon{background:#fdeaf0}
+    .staff-icon svg{width:28px;height:28px}
+    .staff-card:nth-child(1) .staff-icon{background:var(--green-light);color:var(--green-dark)}
+    .staff-card:nth-child(2) .staff-icon{background:#fdf0e4;color:#c77b3f}
+    .staff-card:nth-child(3) .staff-icon{background:#fdeaf0;color:#d76a92}
     .staff-card b{font-family:var(--font-head);font-size:13px;color:var(--text);display:block;line-height:1.45}
     .staff-card span{font-size:10.5px;color:var(--text-light);display:block;margin-top:4px;line-height:1.5}
 
@@ -375,7 +385,10 @@
       border-radius:12px;padding:12px 14px;font-size:12px;color:var(--green-deep);
       line-height:1.6;margin-bottom:16px;font-weight:500;
     }
-    .form-promise::before{content:'🔔';font-size:15px}
+    .form-promise::before{
+      content:'';flex-shrink:0;width:18px;height:18px;margin-top:2px;
+      background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23067a76' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'><path d='M18.5 16h-13c1.3-1.5 2.1-2.7 2.1-6.3a4.4 4.4 0 0 1 8.8 0c0 3.6.8 4.8 2.1 6.3z'/><path d='M10.3 19.2a1.9 1.9 0 0 0 3.4 0'/></svg>") no-repeat center/contain;
+    }
     .form-result{
       display:none;border-radius:14px;padding:16px 18px;font-size:14px;font-weight:500;
       line-height:1.65;margin-top:14px;text-align:center;
@@ -482,8 +495,13 @@
     .voice-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
     .voice-avatar{
       width:44px;height:44px;border-radius:50%;background:var(--green-light);flex-shrink:0;
-      display:flex;align-items:center;justify-content:center;font-size:22px;
+      display:flex;align-items:baseline;justify-content:center;
+      font-family:var(--font-head);font-weight:900;font-size:17px;color:var(--green-deep);
+      padding-top:11px;
     }
+    .voice-avatar small{font-size:9.5px;font-weight:700;margin-left:1px}
+    .voice-card:nth-child(3n+2) .voice-avatar{background:#fdf0e4;color:#b06a2c}
+    .voice-card:nth-child(3n) .voice-avatar{background:#fdeaf0;color:#c25b7f}
     .voice-meta b{font-family:var(--font-head);font-size:14px;display:block;line-height:1.4}
     .voice-meta span{font-size:11.5px;color:var(--text-light)}
     .voice-row{padding:12px 14px;border-radius:12px;font-size:13.5px;line-height:1.7;background:var(--green-pale)}
@@ -604,7 +622,7 @@
 ============================ -->
 <header class="header">
   <img src="assets/logo.png" alt="コプラス東大前教室">
-  <a href="#contact" class="header-cta">✉ 無料で相談</a>
+  <a href="#contact" class="header-cta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7.5L12 13l8.5-5.5"/></svg>無料で相談</a>
 </header>
 
 <!-- ============================
@@ -696,7 +714,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">🌼</div>
+        <div class="voice-avatar" aria-hidden="true">5<small>歳</small></div>
         <div class="voice-meta"><b>5歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>人見知り、言葉の遅れ、手先の不器用さなど</div>
@@ -707,7 +725,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">🎈</div>
+        <div class="voice-avatar" aria-hidden="true">4<small>歳</small></div>
         <div class="voice-meta"><b>4歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>こだわり、癇癪、やり直し行動など</div>
@@ -718,7 +736,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">🕒</div>
+        <div class="voice-avatar" aria-hidden="true">3<small>歳</small></div>
         <div class="voice-meta"><b>3歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>落ち着きがない。切り替えが遅い。オムツが外れない。年齢の割に発達がゆっくり。</div>
@@ -729,7 +747,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">🌱</div>
+        <div class="voice-avatar" aria-hidden="true">3<small>歳</small></div>
         <div class="voice-meta"><b>3歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>25週の早産で生まれ、1歳半健診で発語を含めた全体的な発達の遅れを指摘されました。発語、積み木やお絵描きなど、全体的に悩んでいました。</div>
@@ -740,7 +758,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">☂️</div>
+        <div class="voice-avatar" aria-hidden="true">6<small>歳</small></div>
         <div class="voice-meta"><b>6歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>発語がない、幼稚園で教室にいられない、傘も雨がっぱも使えない</div>
@@ -751,7 +769,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">✏️</div>
+        <div class="voice-avatar" aria-hidden="true">5<small>歳</small></div>
         <div class="voice-meta"><b>5歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>感情のコントロール、就学の不安</div>
@@ -762,7 +780,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">💬</div>
+        <div class="voice-avatar" aria-hidden="true">7<small>歳</small></div>
         <div class="voice-meta"><b>7歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>自分の意思を言語化できず癇癪を起こす</div>
@@ -773,7 +791,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">🎨</div>
+        <div class="voice-avatar" aria-hidden="true">4<small>歳</small></div>
         <div class="voice-meta"><b>4歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>特定の物に対する意識の偏りがあり、周囲の人や社会への働きかけが少ない点や、手先の不器用さ、バランス感覚といった運動機能面</div>
@@ -784,7 +802,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">📚</div>
+        <div class="voice-avatar" aria-hidden="true">7<small>歳</small></div>
         <div class="voice-meta"><b>7歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>普通級で理解が追いつかないのではないかと悩んでいた</div>
@@ -795,7 +813,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">🧸</div>
+        <div class="voice-avatar" aria-hidden="true">6<small>歳</small></div>
         <div class="voice-meta"><b>6歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>こだわりによるかんしゃく</div>
@@ -806,7 +824,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">🍀</div>
+        <div class="voice-avatar" aria-hidden="true">5<small>歳</small></div>
         <div class="voice-meta"><b>5歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>落ち着きがない。気持ちの切り替えがつかない。</div>
@@ -817,7 +835,7 @@
     <article class="voice-card">
       <span class="voice-tape" aria-hidden="true"></span>
       <div class="voice-head">
-        <div class="voice-avatar" aria-hidden="true">⭐</div>
+        <div class="voice-avatar" aria-hidden="true">6<small>歳</small></div>
         <div class="voice-meta"><b>6歳のお子さまの保護者</b><span>アンケート回答より</span></div>
       </div>
       <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>気持ちの切り替え、気持ちを言葉で伝えること</div>
@@ -877,17 +895,23 @@
   </div>
   <div class="staff-cards">
     <div class="staff-card rv">
-      <div class="staff-icon">🏃</div>
+      <div class="staff-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.6" r="2.4"/><path d="M5 11.5c4.5-2.6 9.5-2.6 14 0"/><path d="M12 9.2v5.8"/><path d="M8.5 20.5l3.5-5.5 3.5 5.5"/></svg>
+      </div>
       <b>からだ・感覚</b>
       <span>うごきや感覚の「気になる」を一緒に整理できます</span>
     </div>
     <div class="staff-card rv">
-      <div class="staff-icon">🎨</div>
+      <div class="staff-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4.5l4.2 6.8H4.3z"/><rect x="4" y="14" width="7" height="6.5" rx="1.2"/><circle cx="16.8" cy="17.2" r="3.4"/></svg>
+      </div>
       <b>あそび・学び</b>
       <span>ことばや遊びの育ちを一緒に確認できます</span>
     </div>
     <div class="staff-card rv">
-      <div class="staff-icon">🤝</div>
+      <div class="staff-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.2-4.6-7.2-9.6A4.1 4.1 0 0 1 12 7.6a4.1 4.1 0 0 1 7.2 2.8C19.2 15.4 12 20 12 20z"/></svg>
+      </div>
       <b>生活・こころ</b>
       <span>身支度や集団生活のコツを一緒に考えられます</span>
     </div>
