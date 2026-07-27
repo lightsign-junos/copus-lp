@@ -4,7 +4,7 @@
 障害児通所支援事業所「コプラス東大前教室」の**相談獲得**に特化したランディングページ。
 Instagram広告・プロフィールURLからの流入がメイン。主要ターゲットは「診断前・様子見段階で発達が気になっている保護者（グレーゾーン層）」。
 
-- 本番: https://copus-lp-todaimae.vercel.app/ （GitHub `lightsign-junos/copus-lp` の main に push すると自動デプロイ）
+- 本番: https://copuslp.vercel.app/ （GitHub `lightsign-junos/copus-lp` の main に push すると自動デプロイ。2026-07-24 Vercelプロジェクトを1つに集約済み）
 - 成果物: `index.html` 1ファイル完結（HTML + CSS + JS）。外部依存は Google Fonts のみ
 
 ## ⚠️ 絶対に守る制約
