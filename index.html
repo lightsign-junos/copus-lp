@@ -78,7 +78,7 @@
     .hero{
       position:relative;overflow:hidden;
       background:linear-gradient(165deg,var(--green-pale) 0%,var(--cream) 55%,var(--green-light) 100%);
-      padding:38px 22px 0;
+      padding:30px 22px 0;
     }
     .hero .orb{position:absolute;border-radius:50%;pointer-events:none}
     .hero .orb1{width:260px;height:260px;top:-110px;right:-90px;background:radial-gradient(circle at 35% 35%,var(--green-mid),transparent 70%);opacity:.55}
@@ -91,7 +91,7 @@
     .hero-badge{
       display:inline-flex;align-items:center;gap:7px;background:#fff;
       border:1.5px solid var(--green-mid);color:var(--green-deep);
-      font-size:12px;font-weight:700;padding:6px 15px;border-radius:20px;margin-bottom:18px;
+      font-size:12px;font-weight:700;padding:6px 15px;border-radius:20px;margin-bottom:12px;
       box-shadow:var(--shadow-sm);position:relative;z-index:2;
     }
     .hero-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2.4s infinite}
@@ -108,7 +108,7 @@
     }
     .hero h1{
       font-family:var(--font-head);font-weight:900;line-height:1.5;
-      font-size:29px;position:relative;z-index:2;margin-bottom:14px;
+      font-size:29px;position:relative;z-index:2;margin-bottom:10px;
     }
     .hero h1 .dekita{
       position:relative;display:inline-block;color:var(--green-dark);
@@ -122,11 +122,11 @@
       fill:none;stroke:var(--sun);stroke-width:7;stroke-linecap:round;opacity:.8;
     }
     .hero-sub{
-      font-size:14px;color:var(--text-mid);margin-bottom:22px;position:relative;z-index:2;
+      font-size:14px;color:var(--text-mid);margin-bottom:16px;position:relative;z-index:2;
     }
     .hero-sub b{color:var(--green-deep);font-weight:700}
 
-    .hero-photos{position:relative;z-index:2;margin:0 auto 26px;width:92%}
+    .hero-photos{position:relative;z-index:2;margin:0 auto 18px;width:92%}
     .hero-photo-main{
       width:88%;margin-left:auto;aspect-ratio:1.12;object-fit:cover;
       object-position:center 70%;
@@ -541,6 +541,11 @@
     .midcta-trust{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 14px;margin-top:14px}
     .midcta-trust span{font-size:12px;color:var(--text-mid);display:flex;align-items:center;gap:4px;font-weight:500}
     .midcta-trust span::before{content:'✓';color:var(--green);font-weight:900}
+    .tel-line{
+      margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);
+      font-size:12px;color:var(--text-mid);line-height:1.7;text-align:center;
+    }
+    .tel-line a{color:var(--green-deep);font-weight:900;font-family:var(--font-head);font-size:17px;letter-spacing:.02em}
 
     /* ==============================
        支援のようす
@@ -980,7 +985,8 @@
     <a href="#contact" class="cta mid-cta-link">
       <span class="cta-inner">無料で相談してみる<small>必須は2項目・30秒／しつこい営業はしません</small></span>
     </a>
-    <div class="midcta-trust"><span>相談無料</span><span>診断前OK</span><span>オンライン相談OK</span></div>
+    <div class="midcta-trust"><span>相談無料</span><span>診断前OK</span><span>オンライン相談OK</span><span>資料請求もOK</span></div>
+    <p class="tel-line">お電話でのご相談もできます<br><a href="tel:0358347788">03-5834-7788</a><br>10:00〜18:00（日曜・祝日休み）</p>
   </div>
 </section>
 
@@ -1175,6 +1181,7 @@
   <div class="contact-lead rv">
     <b>相談だけで終わってもOKです</b>
     <p>お電話・オンラインでの相談もOK。しつこい営業や無理な勧誘は一切しません。</p>
+    <p class="tel-line">フォームが面倒な方は、お電話でどうぞ<br><a href="tel:0358347788">03-5834-7788</a><br>10:00〜18:00（日曜・祝日休み）</p>
     <p class="contact-cred">文京区指定事業｜児童発達支援・放課後等デイサービス（事業所番号 1350500441）｜相談支援併設</p>
   </div>
 
