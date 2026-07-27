@@ -42,6 +42,7 @@
       --shadow-md:0 8px 30px rgba(6,122,118,.14);
     }
     html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    :focus-visible{outline:3px solid var(--green-dark);outline-offset:2px}
     body{
       font-family:var(--font-body);font-size:16px;line-height:1.8;color:var(--text);
       background:var(--white);max-width:480px;margin:0 auto;
@@ -96,6 +97,15 @@
     .hero-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2.4s infinite}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
 
+    .hero-hook{
+      font-family:var(--font-head);font-size:15.5px;font-weight:700;line-height:1.65;
+      color:var(--text);margin-bottom:12px;position:relative;z-index:2;
+    }
+    .hero-hook em{
+      font-style:normal;
+      background:linear-gradient(transparent 60%,rgba(255,214,107,.75) 60%);
+      padding:0 2px;
+    }
     .hero h1{
       font-family:var(--font-head);font-weight:900;line-height:1.5;
       font-size:29px;position:relative;z-index:2;margin-bottom:14px;
@@ -330,6 +340,10 @@
     }
     .contact-lead b{font-family:var(--font-head);font-size:16px;color:var(--green-deep);display:block;margin-bottom:4px}
     .contact-lead p{font-size:12.5px;color:var(--text-mid);line-height:1.7}
+    .contact-cred{
+      font-size:10.5px;color:var(--text-light);margin-top:10px;padding-top:10px;
+      border-top:1px dashed var(--border);letter-spacing:.02em;
+    }
     .fg{margin-bottom:16px}
     .fg .flabel{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;margin-bottom:7px}
     .req{background:#E55;color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:4px}
@@ -422,13 +436,13 @@
       .hero .plus{animation:floaty 4.5s ease-in-out infinite}
       .hero .plus2{animation-delay:1.2s}.hero .plus3{animation-delay:2.1s}
       @keyframes floaty{0%,100%{transform:translateY(0) rotate(-14deg)}50%{transform:translateY(-9px) rotate(-6deg)}}
-      .hero-badge,.hero h1,.hero-sub,.hero-photos,.hero .hero-cta-main,.hero .trust{
+      .hero-badge,.hero-hook,.hero h1,.hero-sub,.hero-photos,.hero .hero-cta-main,.hero .trust{
         opacity:0;transform:translateY(16px);animation:in .65s cubic-bezier(.16,1,.3,1) forwards;
       }
-      .hero-badge{animation-delay:.1s}.hero h1{animation-delay:.25s}.hero-sub{animation-delay:.45s}
-      .hero-photos{animation-delay:.6s}.hero .hero-cta-main{animation-delay:.8s}.hero .trust{animation-delay:.95s}
+      .hero-badge{animation-delay:.1s}.hero-hook{animation-delay:.22s}.hero h1{animation-delay:.38s}.hero-sub{animation-delay:.55s}
+      .hero-photos{animation-delay:.7s}.hero .hero-cta-main{animation-delay:.9s}.hero .trust{animation-delay:1.05s}
       @keyframes in{to{opacity:1;transform:none}}
-      .hero h1 .dekita svg path{stroke-dasharray:300;stroke-dashoffset:300;animation:draw .7s ease-out 1.15s forwards}
+      .hero h1 .dekita svg path{stroke-dasharray:300;stroke-dashoffset:300;animation:draw .7s ease-out 1.25s forwards}
       @keyframes draw{to{stroke-dashoffset:0}}
       .cta::after{
         content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;
@@ -437,6 +451,95 @@
       }
       @keyframes shine{0%,55%{left:-80%}100%{left:140%}}
     }
+
+    /* ==============================
+       利用者の声（自分ごと化）
+       — 教室の掲示板に貼られた「おたより」の意匠。
+         集計中はテープ留めの準備中カード＋募集の貼り紙で正直に見せる
+    ============================== */
+    .voices{background:var(--cream)}
+    .voice-marquee{overflow:hidden;margin:0 -22px;padding:14px 0 6px}
+    .voice-track{
+      display:flex;align-items:flex-start;width:max-content;
+      padding-left:22px;
+      animation:voices-scroll 60s linear infinite;
+    }
+    @keyframes voices-scroll{to{transform:translateX(calc(-1 * var(--loop-dist,2000px)))}}
+    .voice-marquee:hover .voice-track{animation-play-state:paused}
+    @media (prefers-reduced-motion: reduce){
+      .voice-track{animation:none}
+      .voice-marquee{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    }
+    .voice-card{
+      position:relative;background:#fff;border:1.5px solid var(--border);
+      border-radius:18px;padding:24px 16px 16px;box-shadow:var(--shadow-sm);
+      width:300px;flex-shrink:0;margin-right:16px;
+    }
+    .voice-tape{
+      position:absolute;top:-10px;left:50%;width:86px;height:20px;
+      background:rgba(255,214,107,.6);transform:translateX(-50%) rotate(-2deg);border-radius:2px;
+    }
+    .voice-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+    .voice-avatar{
+      width:44px;height:44px;border-radius:50%;background:var(--green-light);flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;font-size:22px;
+    }
+    .voice-meta b{font-family:var(--font-head);font-size:14px;display:block;line-height:1.4}
+    .voice-meta span{font-size:11.5px;color:var(--text-light)}
+    .voice-row{padding:12px 14px;border-radius:12px;font-size:13.5px;line-height:1.7;background:var(--green-pale)}
+    .voice-row .rlabel{
+      display:inline-block;font-family:var(--font-head);font-size:11px;font-weight:700;
+      padding:2px 10px;border-radius:10px;margin-bottom:6px;
+    }
+    .voice-row--before{background:#fdf4f7}
+    .voice-row--before .rlabel{background:#fdeaf0;color:#c25b7f}
+    .voice-row--after{border:1.5px solid var(--green-mid)}
+    .voice-row--after .rlabel{background:var(--green-light);color:var(--green-deep)}
+    .voice-arrow{text-align:center;color:var(--green);font-size:15px;line-height:1;margin:4px 0}
+    .voices-note{text-align:center;font-size:11px;color:var(--text-light);margin-top:14px;line-height:1.7}
+
+    /* ==============================
+       中盤CTA（相談ボタン）
+    ============================== */
+    .midcta{background:var(--green-pale);padding:52px 22px 44px}
+    .midcta-box{
+      position:relative;background:#fff;border:1.5px solid var(--green-mid);border-radius:20px;
+      padding:30px 20px 22px;text-align:center;box-shadow:var(--shadow-sm);
+      max-width:560px;margin:0 auto;
+    }
+    .midcta-note{
+      position:absolute;top:-16px;right:14px;
+      font-family:var(--font-hand);font-size:13.5px;color:var(--green-deep);
+      background:var(--cream);border:1.5px solid var(--sun);
+      padding:5px 13px;border-radius:16px 16px 16px 4px;
+      transform:rotate(3deg);box-shadow:var(--shadow-sm);
+    }
+    .midcta-lead{
+      font-family:var(--font-head);font-size:18px;font-weight:900;line-height:1.6;margin-bottom:16px;
+    }
+    .midcta-lead em{font-style:normal;color:var(--green-dark)}
+    .midcta-box .cta{max-width:400px;margin:0 auto}
+    .midcta-trust{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 14px;margin-top:14px}
+    .midcta-trust span{font-size:12px;color:var(--text-mid);display:flex;align-items:center;gap:4px;font-weight:500}
+    .midcta-trust span::before{content:'✓';color:var(--green);font-weight:900}
+
+    /* ==============================
+       支援のようす
+    ============================== */
+    .support{background:#fff}
+    .support-cards{display:flex;flex-direction:column;gap:18px}
+    .support-card{
+      background:var(--green-pale);border:1.5px solid var(--border);
+      border-radius:18px;overflow:hidden;
+    }
+    .support-card img{width:100%;aspect-ratio:1.7;object-fit:cover}
+    .support-photo-ph{
+      width:100%;aspect-ratio:1.7;display:flex;align-items:center;justify-content:center;gap:6px;
+      color:var(--text-light);font-family:var(--font-hand);font-size:13px;
+      background:repeating-linear-gradient(135deg,#eef7f6,#eef7f6 12px,#f6fbfa 12px,#f6fbfa 24px);
+    }
+    .support-card figcaption{padding:14px 16px;font-size:13.5px;color:var(--text-mid);line-height:1.7}
+    .support-card figcaption b{font-family:var(--font-head);color:var(--text);font-size:14.5px;display:block;margin-bottom:3px}
 
     /* ==============================
        RESPONSIVE — TABLET & PC
@@ -449,6 +552,11 @@
       .hero{padding:56px max(24px,calc((100% - 1040px)/2)) 0}
       .worry-bubbles{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:860px;margin:0 auto 26px}
       .worries-close{max-width:640px;margin:0 auto}
+      .voice-marquee{margin:0;border-radius:18px}
+      .voice-card{width:340px}
+      .midcta{padding:64px 24px 56px}
+      .midcta-box{padding:36px 28px 28px}
+      .support-cards{max-width:640px;margin:0 auto} /* 写真が2枚以上になったら grid 2カラム化 */
       .staff-cards{max-width:720px;margin:0 auto;gap:16px}
       .reason{max-width:720px;margin:0 auto 28px}
       .reason:last-child{margin:0 auto}
@@ -467,6 +575,7 @@
         display:grid;grid-template-columns:1.1fr 1fr;column-gap:52px;
         grid-template-areas:
           "badge photos"
+          "hook photos"
           "h1 photos"
           "sub photos"
           "cta photos"
@@ -475,6 +584,7 @@
         align-content:center;padding-top:64px;
       }
       .hero-badge{grid-area:badge;justify-self:start}
+      .hero-hook{grid-area:hook;font-size:17px}
       .hero h1{grid-area:h1;font-size:40px}
       .hero h1 .dekita{font-size:52px}
       .hero-sub{grid-area:sub;font-size:15px}
@@ -504,7 +614,8 @@
   <div class="orb orb1"></div><div class="orb orb2"></div>
   <span class="plus plus1">＋</span><span class="plus plus2">＋</span><span class="plus plus3">＋</span>
 
-  <span class="hero-badge">文京区・東大前の療育教室</span>
+  <span class="hero-badge">文京区・東大前の発達サポート教室</span>
+  <p class="hero-hook">「<em>様子を見ましょう</em>」と言われたまま、<br>モヤモヤしていませんか？</p>
   <h1>
     お子さまの<br>
     <span class="dekita">"できた"
@@ -526,10 +637,10 @@
   </div>
 
   <a href="#contact" class="cta hero-cta-main">
-    <span class="cta-inner">無料で相談してみる<small>フォーム1分／しつこい営業はしません</small></span>
+    <span class="cta-inner">無料で相談してみる<small>必須は2項目・30秒／しつこい営業はしません</small></span>
   </a>
   <div class="trust">
-    <span>相談無料</span><span>診断前の相談OK</span><span>受給者証サポート</span>
+    <span>相談無料</span><span>診断前の相談OK</span><span>手続きも一緒にサポート</span>
   </div>
 
   <svg class="wave" viewBox="0 0 480 36" preserveAspectRatio="none" aria-hidden="true">
@@ -542,8 +653,8 @@
 ============================ -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>相談無料</span><span>診断前の相談OK</span><span>受給者証の取得サポート</span><span>東大前駅 徒歩6分</span><span>0歳〜18歳まで継続支援</span>
-    <span>相談無料</span><span>診断前の相談OK</span><span>受給者証の取得サポート</span><span>東大前駅 徒歩6分</span><span>0歳〜18歳まで継続支援</span>
+    <span>相談無料</span><span>診断前の相談OK</span><span>手続きも一緒にサポート</span><span>東大前駅 徒歩6分</span><span>0歳〜18歳まで継続支援</span>
+    <span>相談無料</span><span>診断前の相談OK</span><span>手続きも一緒にサポート</span><span>東大前駅 徒歩6分</span><span>0歳〜18歳まで継続支援</span>
   </div>
 </div>
 
@@ -568,6 +679,195 @@
 </section>
 
 <!-- ============================
+     利用者の声（自分ごと化）
+     ※Googleフォーム回答（2026-07-21〜23）より。テスト行は除外。
+       年齢表記の統一・明らかな誤字修正・長文の抜粋のみ実施（内容の改変なし）
+     ※カルーセル：voice-track 内のカードをJSが複製して無限ループ表示
+     ▼新しい回答を追加するときは voice-track 内に voice-card を1枚コピーして追記
+============================ -->
+<section class="section voices" aria-labelledby="voices-heading">
+  <div class="sec-head rv">
+    <span class="sec-eyebrow">利用者の声</span>
+    <h2 class="sec-title" id="voices-heading">通ってみて、<br><em>どう変わった？</em></h2>
+  </div>
+  <div class="voice-marquee" aria-label="利用者の声（自動でスクロールします）">
+  <div class="voice-track" id="voiceTrack">
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">🌼</div>
+        <div class="voice-meta"><b>5歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>人見知り、言葉の遅れ、手先の不器用さなど</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>優しい先生方に見守っていただき、着実にできることが増えています。言葉も増えて遊び方も広がり、お友だちとの関係性にも変化がでてきました！いつも大変感謝しています！</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">🎈</div>
+        <div class="voice-meta"><b>4歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>こだわり、癇癪、やり直し行動など</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>こだわりが緩和し、話を聞けるときが増えました。会話が成り立つことが増え、やり取りがうまくなりました。</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">🕒</div>
+        <div class="voice-meta"><b>3歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>落ち着きがない。切り替えが遅い。オムツが外れない。年齢の割に発達がゆっくり。</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>切り替えが前よりもスムーズになってきた。まだ時間はかかるが、退園するのに1時間かかっていたのが半分くらいの時間になった。</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">🌱</div>
+        <div class="voice-meta"><b>3歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>25週の早産で生まれ、1歳半健診で発語を含めた全体的な発達の遅れを指摘されました。発語、積み木やお絵描きなど、全体的に悩んでいました。</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>①お話ができるようになりました！②手先の動作が苦手でしたが、積み木やブロックもできるようになりました。③靴下や靴を一人で履けるようになりました！コプラスに通って本当によかったと、成長を間近で感じることができています！</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">☂️</div>
+        <div class="voice-meta"><b>6歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>発語がない、幼稚園で教室にいられない、傘も雨がっぱも使えない</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>雨具がイヤで使えなかったのですが、人形や絵本を使って仲良くなるところから始まり、雨具を使えるようになりました。</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">✏️</div>
+        <div class="voice-meta"><b>5歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>感情のコントロール、就学の不安</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>場面の切り替えができるようになった。書字ができるようになってきた。ヘルプ発信ができるようになってきた。自信がついてきた。</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">💬</div>
+        <div class="voice-meta"><b>7歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>自分の意思を言語化できず癇癪を起こす</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>癇癪がなくなった。ヘルプ発信など、考えの言語化が成長した。</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">🎨</div>
+        <div class="voice-meta"><b>4歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>特定の物に対する意識の偏りがあり、周囲の人や社会への働きかけが少ない点や、手先の不器用さ、バランス感覚といった運動機能面</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>自分から周囲の人に対して積極的にコミュニケーションを図ろうとするようになり、自ら工夫して工作物を作ったり、様々な事象に興味関心を持つようになった</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">📚</div>
+        <div class="voice-meta"><b>7歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>普通級で理解が追いつかないのではないかと悩んでいた</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>学習の積み重ねと、学校より先に経験できていたことで、学校では上手に物事に取り組めた</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">🧸</div>
+        <div class="voice-meta"><b>6歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>こだわりによるかんしゃく</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>コミュニケーション能力が向上した</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">🍀</div>
+        <div class="voice-meta"><b>5歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>落ち着きがない。気持ちの切り替えがつかない。</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>気持ちの切り替えができるようになってきた。きちんと座って膝に手を置く時間が増えた。</div>
+    </article>
+
+    <article class="voice-card">
+      <span class="voice-tape" aria-hidden="true"></span>
+      <div class="voice-head">
+        <div class="voice-avatar" aria-hidden="true">⭐</div>
+        <div class="voice-meta"><b>6歳のお子さまの保護者</b><span>アンケート回答より</span></div>
+      </div>
+      <div class="voice-row voice-row--before"><span class="rlabel">利用前のお悩み</span>気持ちの切り替え、気持ちを言葉で伝えること</div>
+      <div class="voice-arrow" aria-hidden="true">▼</div>
+      <div class="voice-row voice-row--after"><span class="rlabel">通って変わったところ</span>感情を言葉で表現したり、成功体験の積み重ねから、自信がついてきたと思います。</div>
+    </article>
+
+  </div>
+  </div>
+  <p class="voices-note rv">※ご利用中の保護者アンケートより。読みやすさのため一部表記を整えています。</p>
+</section>
+
+<!-- ============================
+     中盤CTA（相談ボタン）
+============================ -->
+<section class="midcta" aria-label="相談のご案内">
+  <div class="midcta-box rv">
+    <span class="midcta-note" aria-hidden="true">"ちょっと相談" だけでも</span>
+    <p class="midcta-lead">「これって相談していいのかな」<br>そう思った<em>いま</em>が、はじめどきです。</p>
+    <a href="#contact" class="cta mid-cta-link">
+      <span class="cta-inner">無料で相談してみる<small>必須は2項目・30秒／しつこい営業はしません</small></span>
+    </a>
+    <div class="midcta-trust"><span>相談無料</span><span>診断前OK</span><span>オンライン相談OK</span></div>
+  </div>
+</section>
+
+<!-- ============================
+     支援のようす（写真＋コメント）
+     ▼活動写真が届いたら .is-pending の figure を実写真に差し替え
+============================ -->
+<section class="section support" aria-labelledby="support-heading">
+  <div class="sec-head rv">
+    <span class="sec-eyebrow">支援のようす</span>
+    <h2 class="sec-title" id="support-heading">コプラスでの<br><em>過ごし方</em></h2>
+  </div>
+  <div class="support-cards">
+    <figure class="support-card rv">
+      <img src="assets/images01.jpg" alt="コプラス東大前教室の個別支援スペース" loading="lazy">
+      <figcaption><b>ひとりに、ひとつの机</b>基本は1対1〜1対2。まわりが気にならない環境で、その子のペースに合わせて取り組みます。</figcaption>
+    </figure>
+    <!-- ▼活動写真が届いたらコメントを外して差し替え（2枚になったらPC用グリッド2カラムに戻す）
+    <figure class="support-card rv">
+      <img src="assets/activity01.jpg" alt="コプラス東大前教室での活動のようす" loading="lazy">
+      <figcaption><b>あそびの中で、育てる</b>ここに活動のようすの説明を記入します。</figcaption>
+    </figure>
+    -->
+  </div>
+</section>
+
+<!-- ============================
      専門スタッフ
 ============================ -->
 <section class="section staff" aria-labelledby="staff-heading">
@@ -579,17 +879,17 @@
     <div class="staff-card rv">
       <div class="staff-icon">🏃</div>
       <b>からだ・感覚</b>
-      <span>動きや感覚の発達</span>
+      <span>うごきや感覚の「気になる」を一緒に整理できます</span>
     </div>
     <div class="staff-card rv">
       <div class="staff-icon">🎨</div>
       <b>あそび・学び</b>
-      <span>遊びを通した学び</span>
+      <span>ことばや遊びの育ちを一緒に確認できます</span>
     </div>
     <div class="staff-card rv">
       <div class="staff-icon">🤝</div>
       <b>生活・こころ</b>
-      <span>毎日の生活とこころ</span>
+      <span>身支度や集団生活のコツを一緒に考えられます</span>
     </div>
   </div>
 </section>
@@ -640,7 +940,7 @@
     <div class="flow-step rv">
       <span class="step-label">STEP 1</span>
       <h3>フォームからお問い合わせ</h3>
-      <p>1分で完了。「まず相談だけ」でもOK。</p>
+      <p>30秒で完了。「まず相談だけ」でもOK。</p>
       <p class="hand">→ 翌営業日までにご連絡します</p>
     </div>
     <div class="flow-step rv">
@@ -648,11 +948,13 @@
       <h3>個別相談（無料）</h3>
       <p>専門スタッフに、今の気になりごとをそのままお話しください。</p>
       <p class="hand">→ 対面・お電話・オンラインOK／お子さま連れも大歓迎</p>
+      <p class="hand">→ 相談だけで終わってもOK。その先は聞いてから決められます</p>
     </div>
     <div class="flow-step rv">
       <span class="step-label">STEP 3</span>
       <h3>受給者証の申請サポート</h3>
       <p>お持ちでない方は、併設の相談支援が取得まで伴走します。</p>
+      <p class="hand">→ 相談だけの方は、ここまで進まなくて大丈夫です</p>
     </div>
     <div class="flow-step rv">
       <span class="step-label">STEP 4</span>
@@ -676,8 +978,12 @@
       <div class="faq-a" id="faq-a1"><p>はい、診断の有無に関係なくいつでもご相談いただけます。ご利用には受給者証が必要ですが、併設の相談支援が取得まで一緒にサポートします。</p></div>
     </div>
     <div class="faq-item rv">
+      <button class="faq-q" aria-expanded="false" aria-controls="faq-a3"><span class="q">Q</span>相談したら、必ず利用しないといけませんか？<svg class="chev" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="faq-a" id="faq-a3"><p>いいえ、相談だけで終わっても大丈夫です。お話を聞いて「今は様子を見る」という選択ももちろんOK。通うかどうかは、ご相談のあとにゆっくりお決めください。無理におすすめすることはありません。</p></div>
+    </div>
+    <div class="faq-item rv">
       <button class="faq-q" aria-expanded="false" aria-controls="faq-a2"><span class="q">Q</span>受給者証がないと利用できませんか？<svg class="chev" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      <div class="faq-a" id="faq-a2"><p>コプラスには相談支援もあるため、受給者証の取得手続きについてもスムーズにサポートできます。「まだ受給者証がない」「何から始めたらいいか分からない」という方も、まずはお気軽にご相談ください。</p></div>
+      <div class="faq-a" id="faq-a2"><p>教室のご利用開始には受給者証が必要ですが、<b>ご相談は受給者証がなくてもOK</b>です。お持ちでない方は、併設の相談支援が「何から始めたらいいか」の段階から申請〜取得まで一緒に進めますので、ご安心ください。</p></div>
     </div>
     <div class="faq-item rv">
       <button class="faq-q" aria-expanded="false" aria-controls="faq-a4"><span class="q">Q</span>対象年齢を教えてください<svg class="chev" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
@@ -685,7 +991,7 @@
     </div>
     <div class="faq-item rv">
       <button class="faq-q" aria-expanded="false" aria-controls="faq-a5"><span class="q">Q</span>費用はどのくらいかかりますか？<svg class="chev" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      <div class="faq-a" id="faq-a5"><p>受給者証をお持ちの場合、利用料の9割が自治体負担となり、ご家庭の負担は原則1割です。世帯収入に応じて月額上限額が設定されているため、多くのご家庭で月数千円程度からご利用いただけます。詳しくはお問い合わせください。</p></div>
+      <div class="faq-a" id="faq-a5"><p>ご相談・お問い合わせは無料です。教室を利用する場合は、受給者証をお持ちであれば利用料の9割が自治体負担となり、ご家庭の負担は原則1割です。世帯収入に応じて月額上限額が設定されているため、多くのご家庭で月数千円程度からご利用いただけます。詳しくはお問い合わせください。</p></div>
     </div>
     <div class="faq-item rv">
       <button class="faq-q" aria-expanded="false" aria-controls="faq-a6"><span class="q">Q</span>送迎はありますか？<svg class="chev" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
@@ -717,12 +1023,13 @@
 ============================ -->
 <section class="section contact" id="contact" aria-labelledby="contact-heading">
   <div class="sec-head rv">
-    <span class="sec-eyebrow">まずは1分</span>
+    <span class="sec-eyebrow">必須は2つだけ・30秒</span>
     <h2 class="sec-title" id="contact-heading">無料相談・<em>お問い合わせ</em></h2>
   </div>
   <div class="contact-lead rv">
     <b>相談だけで終わってもOKです</b>
     <p>お電話・オンラインでの相談もOK。しつこい営業や無理な勧誘は一切しません。</p>
+    <p class="contact-cred">文京区指定事業｜児童発達支援・放課後等デイサービス（事業所番号 1350500441）｜相談支援併設</p>
   </div>
 
   <form action="#" method="POST" novalidate id="contactForm">
@@ -732,7 +1039,7 @@
     </div>
     <div class="fg rv">
       <label class="flabel" for="contactInput">連絡先（電話またはメール） <span class="req">必須</span></label>
-      <input type="text" id="contactInput" name="contact" placeholder="090-1234-5678 または example@mail.com" autocomplete="off" inputmode="text" required>
+      <input type="text" id="contactInput" name="contact" placeholder="090-1234-5678 または example@mail.com" inputmode="text" required>
     </div>
     <div class="fg rv">
       <label class="flabel" for="age">お子さまの年齢 <span class="opt">任意</span></label>
@@ -758,7 +1065,7 @@
       <textarea id="message" name="message" placeholder="気になっていること、ご質問など何でもお書きください"></textarea>
     </div>
     <div class="form-promise rv">
-      <span><b>翌営業日までにご連絡します。</b>メールをご記入の方にはメールで返信。突然のお電話はしません。</span>
+      <span><b>翌営業日までにご連絡します。</b>メールをご記入の方にはメールで返信（突然のお電話はしません）。お電話のみの方にはお電話しますので、ご都合の悪い時間帯はメッセージ欄にどうぞ。ご入力内容は、ご相談への対応にのみ使用します。</span>
     </div>
     <button type="submit" class="cta rv" id="formSubmitBtn">
       <span class="cta-inner">この内容で相談してみる<small>入力はここまで。あとは待つだけ</small></span>
@@ -810,6 +1117,46 @@
   })();
 
   /* ================================
+     ティッカー：画面幅に合わせて項目を複製
+     （1グループが画面幅より狭いと -50% ループの継ぎ目に
+       空白が出るため、常に画面幅を超えるまで複製する）
+  ================================ */
+  (function() {
+    var track = document.querySelector('.ticker-track');
+    if (!track) return;
+    var kids = Array.prototype.slice.call(track.children);
+    var base = kids.slice(0, Math.ceil(kids.length / 2)); // 元の1セット分
+    if (!base.length) return;
+
+    function build() {
+      // 1セットの幅を測る
+      track.textContent = '';
+      base.forEach(function(n) { track.appendChild(n.cloneNode(true)); });
+      var setWidth = track.scrollWidth;
+      if (!setWidth) return;
+
+      // 1グループが画面幅を超えるのに必要なセット数（余裕を+1）
+      var perGroup = Math.max(1, Math.ceil(window.innerWidth / setWidth) + 1);
+
+      // 2グループ分（=計 perGroup×2 セット）を並べる → -50%ループが継ぎ目なく回る
+      track.textContent = '';
+      for (var i = 0; i < perGroup * 2; i++) {
+        base.forEach(function(n) { track.appendChild(n.cloneNode(true)); });
+      }
+
+      // 見た目のスクロール速度（約41px/秒）を保つよう再生時間を調整
+      track.style.animationDuration = ((perGroup * setWidth) / 41).toFixed(1) + 's';
+    }
+
+    build();
+    var timer;
+    addEventListener('resize', function() {
+      clearTimeout(timer);
+      timer = setTimeout(build, 200);
+    }, { passive: true });
+  })();
+
+  /* ================================
      スクロール出現 + stagger
   ================================ */
   (function() {
@@ -820,7 +1167,7 @@
     }, { threshold: 0.13 });
     document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
 
-    document.querySelectorAll('.worry-bubbles, .staff-cards').forEach(function(g) {
+    document.querySelectorAll('.worry-bubbles, .staff-cards, .support-cards').forEach(function(g) {
       Array.prototype.forEach.call(g.children, function(c, i) {
         c.style.transitionDelay = (i * 0.1) + 's';
       });
@@ -834,20 +1181,29 @@
   (function() {
     var floatEl = document.querySelector('.float-outer');
     var heroCta = document.querySelector('.hero-cta-main');
+    var midCta  = document.querySelector('.mid-cta-link');
     var contact = document.getElementById('contact');
     if (!floatEl || !heroCta || !contact) return;
 
     var heroVisible = true;
+    var midVisible = false;
     var contactVisible = false;
 
     function update() {
-      floatEl.classList.toggle('show', !heroVisible && !contactVisible);
+      floatEl.classList.toggle('show', !heroVisible && !midVisible && !contactVisible);
     }
 
     new IntersectionObserver(function(entries) {
       entries.forEach(function(e) { heroVisible = e.isIntersecting; });
       update();
     }, { threshold: 0 }).observe(heroCta);
+
+    if (midCta) {
+      new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { midVisible = e.isIntersecting; });
+        update();
+      }, { threshold: 0 }).observe(midCta);
+    }
 
     new IntersectionObserver(function(entries) {
       entries.forEach(function(e) { contactVisible = e.isIntersecting; });
@@ -864,6 +1220,46 @@
     new IntersectionObserver(function(entries) {
       entries.forEach(function(e) { if (e.isIntersecting) flow.classList.add('grow'); });
     }, { threshold: 0.25 }).observe(flow);
+  })();
+
+  /* ================================
+     利用者の声：自動スクロールカルーセル
+     - カード一式を複製し、1セット分の距離を translateX で無限ループ
+     - 速度はカード幅によらず約32px/秒
+     - reduced-motion 時は複製せず、横スワイプで見られる静的リストのまま
+  ================================ */
+  (function() {
+    var track = document.getElementById('voiceTrack');
+    if (!track) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var setCount = track.children.length;
+    track.innerHTML += track.innerHTML; // 1セット複製（継ぎ目なしループ用）
+    for (var i = setCount; i < track.children.length; i++) {
+      track.children[i].setAttribute('aria-hidden', 'true');
+    }
+
+    function measure() {
+      // 複製セットの先頭カードまでの距離 = 正確なループ1周分
+      var dist = track.children[setCount].offsetLeft - track.children[0].offsetLeft;
+      track.style.setProperty('--loop-dist', dist + 'px');
+      track.style.animationDuration = (dist / 32) + 's';
+    }
+    measure();
+
+    var timer;
+    addEventListener('resize', function() {
+      clearTimeout(timer);
+      timer = setTimeout(measure, 200);
+    }, { passive: true });
+
+    // タッチ中は一時停止（読みやすさ）
+    track.addEventListener('touchstart', function() {
+      track.style.animationPlayState = 'paused';
+    }, { passive: true });
+    track.addEventListener('touchend', function() {
+      track.style.animationPlayState = 'running';
+    }, { passive: true });
   })();
 
   /* ================================
@@ -944,7 +1340,8 @@
       var contactVal = document.getElementById('contactInput').value.trim();
 
       if (!nameVal || !contactVal) {
-        alert('お名前と連絡先は必須です。');
+        showError('お名前と連絡先をご入力ください。');
+        (!nameVal ? document.getElementById('name') : document.getElementById('contactInput')).focus();
         return;
       }
 
